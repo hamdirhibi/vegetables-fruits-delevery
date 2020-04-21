@@ -9,6 +9,7 @@ const UserRoute = require('./routes/User');
 const OrderRoute = require('./routes/Order'); 
 const CategoryRoute = require('./routes/Category'); 
 //const  User = require('./models/User'); 
+const path = require ('path') ; 
 
 dotenv.config() ; 
 
@@ -51,7 +52,15 @@ app.use('/user', UserRoute) ;
 app.use('/order', OrderRoute) ; 
 app.use('/category', CategoryRoute) ; 
 app.use("/uploads", express.static("./uploads"));
-app.use(express.static("client/www"));
+if (process.env.NODE_ENV=='production'){
+  app.use(express.static('client/www')); 
+
+  app.get('*', (req, res)=>{
+      res.sendFile(path.join(__dirname,'client','www','index.html')); 
+  })
+
+}
+
 app.listen (process.env.PORT ||3000, ()=>{
 console.log('server up and running ');
 }) 
