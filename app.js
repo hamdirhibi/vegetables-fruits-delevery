@@ -52,9 +52,10 @@ app.use('/user', UserRoute) ;
 app.use('/order', OrderRoute) ; 
 app.use('/category', CategoryRoute) ; 
 app.use("/uploads", express.static("./uploads"));
-if (process.env.NODE_ENV=='production'){
-  app.use(express.static('client/www')); 
+//console.log(__dirname)
 
+if (process.env.NODE_ENV=='production'){
+  app.use(express.static('./client/www')); 
   app.get('*', (req, res)=>{
       res.sendFile(path.join(__dirname,'client','www','index.html')); 
   })
