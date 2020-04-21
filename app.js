@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const productRoute = require('./routes/Product'); 
 const UserRoute = require('./routes/User'); 
 const OrderRoute = require('./routes/Order'); 
-
 const CategoryRoute = require('./routes/Category'); 
 //const  User = require('./models/User'); 
 
@@ -45,7 +44,6 @@ mongoose.connect(process.env.MONGODB_URI,
  //Middlewares 
  app.use(express.json())
  app.use(bodyParser.json());
- app.use(cors()); 
  app.use(bodyParser.urlencoded({ extended: false }));
 // route middlewares 
 app.use('/product',productRoute); 
@@ -53,7 +51,7 @@ app.use('/user', UserRoute) ;
 app.use('/order', OrderRoute) ; 
 app.use('/category', CategoryRoute) ; 
 app.use("/uploads", express.static("./uploads"));
-
+app.use(express.static("client/www"));
 app.listen (process.env.PORT ||3000, ()=>{
 console.log('server up and running ');
 }) 
